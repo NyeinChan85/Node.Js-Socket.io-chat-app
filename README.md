@@ -13,7 +13,7 @@ Requirements
 Usage
 ======
 
-First, if you haven't already installed on your machine, download Node.js [here](http://nodejs.org/download/)
+First, if you haven't already installed Node.js on your machine, download Node.js [here](http://nodejs.org/download/)
 
 Then, download and install dependencies: express and socket.io with the command `npm install`
 
