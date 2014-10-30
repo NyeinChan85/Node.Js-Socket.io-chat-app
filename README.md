@@ -1,4 +1,4 @@
--Node.Js-Socket.io-chat-app
+Node.Js-Socket.io-chat-app
 ===========================
 
 Basic Node.js - socket.io chat application using express framework. 
