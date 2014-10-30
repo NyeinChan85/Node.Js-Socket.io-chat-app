@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>socket io</title>
+     <style>
+     body {
+     	font-family: Georgia, Times;
+     	 margin: 5px;
+     	 font-size: 12px;
+     	 text-align: left;
+     }
+	
+
+	form {
+		margin-left:30px;
+		margin-bottom: 20px;
+	}
+	header {
+	    background-color:gray;
+	    color:white;
+	    text-align:center;
+	    padding:5px; 
+	    box-shadow: 10px 10px 5px #000;
+	}
+	#nickname {
+	    line-height:30px;
+	    background-color:#eeeeee;
+	    height:600px;
+	    width:100px;
+	    float:left;
+	    padding:5px;
+	    text-decoration: blink;
+	}
+	#chatArea {
+	    width:350px;
+	    float:left;
+	    padding:10px;	
+        height: 600px;
+    	border-bottom: 1px dotted #B3A9A9; 	 
+	}
+	#footer {
+	    background-color: gray;
+	    color:white;
+	    clear:both;
+	    text-align:center;
+	    padding:30px;	 	 
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+</head>
+	<body>
+	    <header>
+        <h1>Welcome to Chan Chat App</h1>
+        </header>
+        <div id="nickname">
+		<br>
+		</div>
+         <section>
+	    <main>
+        <div id="chatArea"></div>
+         </section>
+		<div class="panel-footer" id="footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                        <span class="input-group-btn">
+                           
+                            <button class="btn btn-warning btn-sm" id="btn-chat" >
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+	</main>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+      <script type="text/javascript" src="../socket.io/socket.io.js"></script>
+      <script>
+      jQuery(function($){
+	   var socket = io.connect();
+	   var $messageInput = $('#btn-input');
+	   var $messageButton = $('#btn-chat');
+	   var $chatArea= $('#chatArea');
+	   var $nicknameArea = $('#nickname');
+
+	$messageButton.click(function(e){
+		e.preventDefault();
+		socket.emit('client messages', $messageInput.val());
+		$messageInput.val('');
+
+	});
+	socket.on('connect', function(data){
+		$('#status').html('Connected to chat');
+		nickname = prompt("Welcome to Chan Chat App. Enter your nick name! ");
+		
+		socket.emit('join', nickname);
+	})
+	socket.on('server messages', function(data){
+		insertMessage(data, $chatArea)});
+	})
+    var insertMessage = function(data, chat){
+    	
+    	return chat.append(data + "<br/>");
+    }; 
+    
+</script>
+</body>
+</html>
